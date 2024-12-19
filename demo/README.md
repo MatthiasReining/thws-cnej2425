@@ -25,8 +25,34 @@ Initial setup via mvn archetype
 
 ### via CLI
 
+In general (for all App servers): Ship / copy the _war_ file to the deployment directory.
+
     mvn clean package -DskipTests && copy target\demo.war ..\..\srv\wildfly-34.0.1.Final\standalone\deployments\. /Y
+
+Undeploy by removing the file from the _deployments_ directory.
+
+### Wildfly Plugin
+
+With _Wildfly_ you can also use mvn
+
+    mvn org.wildfly.plugins:wildfly-maven-plugin:deploy
+
+    mvn org.wildfly.plugins:wildfly-maven-plugin:undeploy
+
+(or setup within pom.xml)
+
+### IDE Plugin
+
+VSC: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-server-connector
+
+Also useful for debug mode and hot code replacement
 
 ### Test
 
     curl http://localhost:8080/demo/hello
+
+## Exmples
+
+### From Wildfly
+
+see https://github.com/wildfly/quickstart

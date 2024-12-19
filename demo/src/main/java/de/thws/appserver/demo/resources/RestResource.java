@@ -25,6 +25,7 @@ public class RestResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public HelloRecord hello(){
+        System.out.println("hello on console log 2");
         return new HelloRecord("Hello THWS");
     }
 }
