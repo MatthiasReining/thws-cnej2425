@@ -25,6 +25,6 @@ public class RestResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public HelloRecord hello(){
-        return new HelloRecord("Hello from Jakarta EE");
+        return new HelloRecord("Hello THWS");
     }
 }

@@ -9,6 +9,8 @@
     mvn: 3.9.6
     java: Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 21.0.2+13.1 (build 21.0.2+13-LTS-jvmci-23.1-b30, mixed mode, sharing)
 
+    Wildfly: ..\srv\wildfly-34.0.1.Final (installed)
+
 **Project init**
 
 Initial setup via mvn archetype
@@ -17,6 +19,14 @@ Initial setup via mvn archetype
 
 ## Deploy
 
+### Server start
+
+    srv\wildfly-34.0.1.Final\bin\standalone.bat
+
 ### via CLI
 
-mvn clean package -DskipTests && copy target\demo.war ..\srv\wildfly-34.0.1.Final\standalone\deployments\.
+    mvn clean package -DskipTests && copy target\demo.war ..\..\srv\wildfly-34.0.1.Final\standalone\deployments\. /Y
+
+### Test
+
+    curl http://localhost:8080/demo/hello
