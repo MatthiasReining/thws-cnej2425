@@ -16,21 +16,21 @@ public class BrowserBlockerFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
 
-        String userAgent = req.getHeader("user-agent");
-
-        if (userAgent.contains("Chrome")) {
-            // no chrome rendering engine
-            return;
-        }
-
-        // String browser = req.getHeader("Sec-Ch-Ua");
-        // if (browser != null && browser.toLowerCase().contains("edge")) {
-        // resp.getWriter().println("We don't like Edge!");
+        // Skipped for further examples with the Browser
+        // String userAgent = req.getHeader("user-agent");
+        // if (userAgent.contains("Chrome")) {
+        // no chrome rendering engine
         // return;
         // }
 
-        super.doFilter(req, res, chain);
+        // Block Edge Browser
+        String browser = req.getHeader("Sec-Ch-Ua");
+        if (browser != null && browser.toLowerCase().contains("edge")) {
+            res.getWriter().println("We don't like Edge!");
+            return;
+        }
 
+        super.doFilter(req, res, chain);
     }
 
 }
