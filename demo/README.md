@@ -53,6 +53,13 @@ Also useful for debug mode and hot code replacement
 
 ## Exmples
 
+- http://localhost:8080/demo/post2.html
+- http://localhost:8080/demo/first
+- http://localhost:8080/demo/redirect
+- http://localhost:8080/demo/forward
+- http://localhost:8080/demo/contenttype
+- http://localhost:8080/demo/status?targetStatus=204
+
 ### From Wildfly
 
 see https://github.com/wildfly/quickstart
