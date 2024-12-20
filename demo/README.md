@@ -68,3 +68,9 @@ see https://github.com/wildfly/quickstart
 
     docker build -t thws/demo .
     docker run -p 8080:8080 thws/demo
+
+## SOAP WS
+
+http://localhost:8080/demo/StudentService?wsdl
+
+Testable via SOAP UI
