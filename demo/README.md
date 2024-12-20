@@ -63,3 +63,8 @@ Also useful for debug mode and hot code replacement
 ### From Wildfly
 
 see https://github.com/wildfly/quickstart
+
+## Dockerize
+
+    docker build -t thws/demo .
+    docker run -p 8080:8080 thws/demo
