@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: student #optional (specify default database instead of $POSTGRES_DB)
+    #volumes:
+    #  - db:/data/postgres
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: "docker.io/dpage/pgadmin4:latest"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin123"
+    ports:
+      - 6060:80
