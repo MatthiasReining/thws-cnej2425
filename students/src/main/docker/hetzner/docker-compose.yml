@@ -1,0 +1,15 @@
+services:
+  students-quarkus-jvm:
+    image: 908027413209.dkr.ecr.eu-central-1.amazonaws.com/thws/students:jvm-latest
+    ports:
+      - "8000:8080"
+
+students-quarkus-native:
+  image: 908027413209.dkr.ecr.eu-central-1.amazonaws.com/thws/students:native-latest
+  ports:
+    - "7000:8080"
+
+students-wf:
+  image: 908027413209.dkr.ecr.eu-central-1.amazonaws.com/thws/students:wf-latest
+  ports:
+    - "6000:8080"
