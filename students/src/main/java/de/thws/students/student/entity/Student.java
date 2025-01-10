@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.thws.students.logdata.entity.LogData;
 import de.thws.students.major.entity.Major;
+import de.thws.students.student.boundary.StudentDTO;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,6 @@ public class Student {
     public Long id;
 
     @ManyToOne
-    @JsonIgnore
     public Major major;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -41,5 +41,17 @@ public class Student {
 
     @NotNull
     public LocalDate birthdate;
+
+    public StudentDTO toDTO() {
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.id = this.id;
+        studentDTO.firstname = this.firstname;
+        studentDTO.lastname = this.lastname;
+        studentDTO.immatriculationNumber = this.immatriculationNumber;
+        studentDTO.birthdate = this.birthdate;
+
+        return studentDTO;
+
+    }
 
 }

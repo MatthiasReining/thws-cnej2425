@@ -18,7 +18,7 @@ public class StudentService {
     EntityManager em;
 
     @Transactional
-    public Student createStudent(StudentDTO studentDTO) {
+    public StudentDTO createStudent(StudentDTO studentDTO) {
         System.out.println("Student: " + studentDTO);
 
         Student student = new Student();
@@ -40,36 +40,22 @@ public class StudentService {
         var d1 = student.major;
         var d2 = student.logData.size();
 
-        return student;
+        return student.toDTO();
     }
 
     public StudentDTO getStundent(Long id) {
 
-        Student student = em.find(Student.class, id);
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.id = student.id;
-        studentDTO.firstname = student.firstname;
-        studentDTO.lastname = student.lastname;
-        studentDTO.immatriculationNumber = student.immatriculationNumber;
-        studentDTO.birthdate = student.birthdate;
-
-        return studentDTO;
+        return em.find(Student.class, id).toDTO();
     }
 
     @Transactional
     public StudentDTO getStudentAndWriteAuditLog(Long id) {
 
         Student student = em.find(Student.class, id);
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.id = student.id;
-        studentDTO.firstname = student.firstname;
-        studentDTO.lastname = student.lastname;
-        studentDTO.immatriculationNumber = student.immatriculationNumber;
-        studentDTO.birthdate = student.birthdate;
 
         student.logData.add(new LogData("Student data accessed"));
 
-        return studentDTO;
+        return student.toDTO();
     }
 
 }
