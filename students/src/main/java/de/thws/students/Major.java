@@ -1,34 +1,30 @@
 package de.thws.students;
 
-import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * de: Studiengang
+ */
 @Entity
-public class Student {
+public class Major {
 
     @Id
     @GeneratedValue
     public Long id;
 
-    @ManyToOne
-    public Major major;
-
     @NotBlank
-    public String firstname;
-    @NotBlank
-    public String lastname;
-
-    // only numbers
-    @NotBlank
-    public String immatriculationNumber;
-
     @NotNull
-    public LocalDate birthdate;
+    public String name;
+
+    @OneToMany(mappedBy = "major")
+    public List<Student> students;
 
 }

@@ -52,9 +52,12 @@ public class StudentResource {
         student.immatriculationNumber = studentDTO.immatriculationNumber;
         student.lastname = studentDTO.lastname;
 
-        student = em.merge(student);
+        Major major = em.find(Major.class, 1L);
+        student.major = major;
 
         System.out.println("Student ID: " + student.id);
+
+        student = em.merge(student);
 
         return student;
     }

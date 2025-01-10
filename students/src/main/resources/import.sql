@@ -1,0 +1,1 @@
+INSERT into major(id, name) values (1, 'Computer Science');

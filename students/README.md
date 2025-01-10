@@ -31,7 +31,7 @@ see README-Quarkus.md AND Dockerfile.native
     docker build -f src/main/docker/Dockerfile.native -t quarkus/students-native .
     docker run -i --rm -p 8080:8080 quarkus/students-native
 
-## Deployment at Hetzner
+### Deployment at Hetzner
 
 - https://www.hetzner.com/de/cloud/
 - CentOS
@@ -67,8 +67,33 @@ via ctop
 
 docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest
 
-## Deploy as AWS Lambda
+### Deploy as AWS Lambda
 
 https://quarkus.io/guides/aws-lambda-http
 
 see also ../aws-lambda
+
+## JPA
+
+settings in `application.propertes`
+
+- Lazy Loading and Eager Loading
+- Settings via ENV variables
+- DTOs / Entity Beans
+- NamedQuery
+- OneToMany (Cascade ,...)
+
+- new Service with Panache
+
+Testing: curl -H "Content-Type: application/json" -d '{"firstname": "Mini 234",
+"lastname": "Mouse", "immatriculationNumber": "123456", "birthdate": "2000-11-18"}' http://localhost:8080/students
+
+## Patterns
+
+- BCE package structure
+
+## Frontend
+
+- lit
+- Bootstrap
+- Vanilla JS (fetch)
