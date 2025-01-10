@@ -97,3 +97,9 @@ Testing: curl -H "Content-Type: application/json" -d '{"firstname": "Mini 234",
 - lit
 - Bootstrap
 - Vanilla JS (fetch)
+
+resources/META-INF/resources
+
+## Web Sockets
+
+ChatSocket und ChatComponent
