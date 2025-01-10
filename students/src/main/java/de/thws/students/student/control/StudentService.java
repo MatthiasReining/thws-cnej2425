@@ -3,8 +3,11 @@ package de.thws.students.student.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import de.thws.students.logdata.entity.LogData;
 import de.thws.students.major.entity.Major;
+import de.thws.students.student.boundary.CreateStudentDTO;
 import de.thws.students.student.boundary.StudentDTO;
 import de.thws.students.student.entity.Student;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,8 +15,6 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import jakarta.transaction.Transactional.TxType;
-import jakarta.validation.Valid;
 
 @ApplicationScoped
 public class StudentService {
@@ -25,14 +26,15 @@ public class StudentService {
     MagicService magicService;
 
     @Transactional
-    public StudentDTO createStudent(StudentDTO studentDTO) {
-        System.out.println("Student: " + studentDTO);
-
+    public StudentDTO createStudent(CreateStudentDTO createStudentDTO) {
         Student student = new Student();
-        student.birthdate = studentDTO.birthdate;
-        student.firstname = studentDTO.firstname;
-        student.immatriculationNumber = studentDTO.immatriculationNumber;
-        student.lastname = studentDTO.lastname;
+        student.birthdate = createStudentDTO.birthdate;
+        student.firstname = createStudentDTO.firstname;
+        student.email = createStudentDTO.email;
+        student.immatriculationNumber = RandomStringUtils.secure().next(8);
+        student.degree = "Bsc";
+        student.status = "active";
+        student.lastname = createStudentDTO.lastname;
 
         Major major = em.find(Major.class, 1L);
         student.major = major;

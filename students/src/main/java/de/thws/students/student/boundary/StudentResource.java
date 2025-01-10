@@ -44,7 +44,7 @@ public class StudentResource {
     }
 
     @POST
-    public StudentDTO createStudent(@Valid StudentDTO studentDTO) {
+    public StudentDTO createStudent(@Valid CreateStudentDTO studentDTO) {
         return studentService.createStudent(studentDTO);
     }
 

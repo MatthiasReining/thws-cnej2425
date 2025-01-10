@@ -48,6 +48,14 @@ public class Student {
     @NotBlank
     public String lastname;
 
+    public String email;
+
+    public String degree;
+
+    public String status;
+
+    public String position;
+
     // only numbers
     @NotBlank
     public String immatriculationNumber;
@@ -62,6 +70,11 @@ public class Student {
         studentDTO.lastname = this.lastname;
         studentDTO.immatriculationNumber = this.immatriculationNumber;
         studentDTO.birthdate = this.birthdate;
+        studentDTO.email = this.email;
+        studentDTO.degree = this.degree;
+        studentDTO.status = this.status;
+        studentDTO.majorName = this.major.name;
+        studentDTO.position = this.position;
 
         return studentDTO;
 

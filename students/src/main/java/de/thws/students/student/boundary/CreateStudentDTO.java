@@ -2,30 +2,20 @@ package de.thws.students.student.boundary;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class StudentDTO {
-
-    public Long id;
+public class CreateStudentDTO {
 
     @NotBlank
     public String firstname;
     @NotBlank
     public String lastname;
 
-    // only numbers
-    @NotBlank
-    public String immatriculationNumber;
-
+    @Email
     public String email;
-    public String degree;
-    public String status;
-
-    public String majorName;
-    public String position;
 
     @NotNull
     public LocalDate birthdate;
-
 }
