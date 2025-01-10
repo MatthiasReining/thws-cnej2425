@@ -37,6 +37,9 @@ public class StudentService {
 
         student = em.merge(student);
 
+        var d1 = student.major;
+        var d2 = student.logData.size();
+
         return student;
     }
 

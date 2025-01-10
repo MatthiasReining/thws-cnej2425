@@ -3,6 +3,8 @@ package de.thws.students.student.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import de.thws.students.logdata.entity.LogData;
 import de.thws.students.major.entity.Major;
 import jakarta.persistence.CascadeType;
@@ -22,6 +24,7 @@ public class Student {
     public Long id;
 
     @ManyToOne
+    @JsonIgnore
     public Major major;
 
     @OneToMany(cascade = CascadeType.ALL)
