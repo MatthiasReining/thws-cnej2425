@@ -1,11 +1,12 @@
 package de.thws.students.student.boundary;
 
+import java.util.List;
+
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import de.thws.students.student.control.StudentService;
-import de.thws.students.student.entity.Student;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.DefaultValue;
@@ -23,6 +24,15 @@ public class StudentResource {
     StudentService studentService;
 
     @GET
+    public List<StudentDTO> getStudents(@QueryParam("immatriculationNumber") String immatriculationNumber) {
+
+        if (immatriculationNumber != null)
+            return studentService.getStudentsByImmatriculationNumber(immatriculationNumber);
+
+        return studentService.getAllStudents();
+    }
+
+    @GET
     @Path("{id}")
     public StudentDTO getStundent(@PathParam("id") Long id,
             @QueryParam("audit") @DefaultValue("true") boolean audit) {
@@ -31,7 +41,6 @@ public class StudentResource {
             return studentService.getStudentAndWriteAuditLog(id);
 
         return studentService.getStundent(id);
-
     }
 
     @POST

@@ -1,6 +1,7 @@
 package de.thws.students.student.control;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.thws.students.logdata.entity.LogData;
 import de.thws.students.major.entity.Major;
@@ -56,6 +57,21 @@ public class StudentService {
         student.logData.add(new LogData("Student data accessed"));
 
         return student.toDTO();
+    }
+
+    public List<StudentDTO> getAllStudents() {
+        return em.createNamedQuery(Student.FIND_ALL, Student.class)
+                .getResultStream()
+                .map(Student::toDTO)
+                .toList();
+    }
+
+    public List<StudentDTO> getStudentsByImmatriculationNumber(String immatriculationNumber) {
+        return em.createNamedQuery(Student.FIND_BY_IMMATRICULATION_NUMBER, Student.class)
+                .setParameter(Student.PARAM_IMMATRICULATION_NUMBER, immatriculationNumber)
+                .getResultStream()
+                .map(Student::toDTO)
+                .toList();
     }
 
 }
