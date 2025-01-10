@@ -8,15 +8,21 @@ import de.thws.students.major.entity.Major;
 import de.thws.students.student.boundary.StudentDTO;
 import de.thws.students.student.entity.Student;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
+import jakarta.validation.Valid;
 
 @ApplicationScoped
 public class StudentService {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    MagicService magicService;
 
     @Transactional
     public StudentDTO createStudent(StudentDTO studentDTO) {
@@ -72,6 +78,28 @@ public class StudentService {
                 .getResultStream()
                 .map(Student::toDTO)
                 .toList();
+    }
+
+    @Transactional
+    public StudentDTO createStudentTxExample(StudentDTO studentDTO) {
+        Student student = new Student();
+        student.birthdate = studentDTO.birthdate;
+        student.firstname = studentDTO.firstname;
+        student.immatriculationNumber = studentDTO.immatriculationNumber;
+        student.lastname = studentDTO.lastname;
+
+        Major major = em.find(Major.class, 1L);
+        student.major = major;
+
+        student.logData = new ArrayList<>();
+        student.logData.add(new LogData("Student created"));
+
+        student = em.merge(student);
+
+        magicService.magicIsWonderful();
+        magicService.failedMagic();
+
+        return student.toDTO();
     }
 
 }

@@ -48,6 +48,12 @@ public class StudentResource {
         return studentService.createStudent(studentDTO);
     }
 
+    @POST
+    @Path("tx-example")
+    public StudentDTO createStudentWithTxExample(@Valid StudentDTO studentDTO) {
+        return studentService.createStudentTxExample(studentDTO);
+    }
+
     /**
      * Create student in a special way
      * 
