@@ -1,5 +1,7 @@
 package de.thws.students;
 
+import java.util.ArrayList;
+
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -41,6 +43,27 @@ public class StudentResource {
         return studentDTO;
     }
 
+    @GET
+    @Path("{id}/dirty-naming-audit-log")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public StudentDTO getStundentWithAuditLog(@PathParam("id") Long id) {
+
+        Student student = em.find(Student.class, id);
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.id = student.id;
+        studentDTO.firstname = student.firstname;
+        studentDTO.lastname = student.lastname;
+        studentDTO.immatriculationNumber = student.immatriculationNumber;
+        studentDTO.birthdate = student.birthdate;
+
+        var ld = new LogData("Student data accessed");
+        ld.student = student;
+        student.logData.add(ld);
+
+        return studentDTO;
+    }
+
     @POST
     @Transactional
     public Student createStudent(@Valid StudentDTO studentDTO) {
@@ -56,6 +79,11 @@ public class StudentResource {
         student.major = major;
 
         System.out.println("Student ID: " + student.id);
+
+        student.logData = new ArrayList<>();
+        var ld = new LogData("Student created");
+        ld.student = student;
+        student.logData.add(ld);
 
         student = em.merge(student);
 

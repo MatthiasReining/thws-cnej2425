@@ -77,11 +77,11 @@ see also ../aws-lambda
 
 settings in `application.propertes`
 
-- Lazy Loading and Eager Loading
-- Settings via ENV variables
+- Settings via ENV variables -> see https://quarkus.io/guides/hibernate-orm
 - DTOs / Entity Beans
+- Lazy Loading and Eager Loading
 - NamedQuery
-- OneToMany (Cascade ,...)
+- OneToMany, ManyToOne, JoinColumn (Cascade ,...)
 
 - new Service with Panache
 
