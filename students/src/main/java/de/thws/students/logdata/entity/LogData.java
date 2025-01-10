@@ -5,6 +5,7 @@ import java.time.ZonedDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 
 @Entity
 public class LogData {
@@ -23,4 +24,10 @@ public class LogData {
     public String message;
 
     public ZonedDateTime ts;
+
+    @PrePersist
+    public void defaultData() {
+        this.ts = ZonedDateTime.now();
+    }
+
 }
