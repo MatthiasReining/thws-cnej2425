@@ -1,8 +1,10 @@
-package de.thws.students;
+package de.thws.students.major.boundary;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import de.thws.students.major.entity.Major;
+import de.thws.students.student.boundary.StudentDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.GET;

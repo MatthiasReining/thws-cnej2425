@@ -1,8 +1,8 @@
-package de.thws.students;
+package de.thws.students.major.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import de.thws.students.student.entity.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

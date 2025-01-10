@@ -1,12 +1,10 @@
-package de.thws.students;
+package de.thws.students.logdata.entity;
 
 import java.time.ZonedDateTime;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class LogData {
@@ -21,9 +19,6 @@ public class LogData {
     @Id
     @GeneratedValue
     public Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    public Student student;
 
     public String message;
 

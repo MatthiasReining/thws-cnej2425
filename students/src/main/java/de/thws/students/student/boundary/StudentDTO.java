@@ -1,4 +1,4 @@
-package de.thws.students;
+package de.thws.students.student.boundary;
 
 import java.time.LocalDate;
 
