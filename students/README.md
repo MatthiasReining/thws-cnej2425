@@ -116,3 +116,16 @@ https://quarkus.io/guides/cdi
 - Produces
 - Qualifier
 - Interceptor
+- Observer (Events)
+
+## Microprofile
+
+### Config
+
+properties in application.properties can be overwritten via environment variables
+
+    docker run -i --rm -e THWS_MAGIC=false -p 8080:8080 quarkus/students-jvm
+
+for JVM start use system properties
+
+    java -Dthws.magic=true -jar target\quarkus-app\quarkus-run.jar

@@ -2,6 +2,7 @@ package de.thws.students.student.boundary;
 
 import java.util.List;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -25,8 +26,15 @@ public class StudentResource {
     @Inject
     StudentService studentService;
 
+    @ConfigProperty(name = "thws.magic")
+    Boolean magic;
+
     @GET
     public List<StudentDTO> getStudents(@QueryParam("immatriculationNumber") String immatriculationNumber) {
+
+        if (magic == true) {
+            System.out.println("run with magic");
+        }
 
         if (immatriculationNumber != null)
             return studentService.getStudentsByImmatriculationNumber(immatriculationNumber);
