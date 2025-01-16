@@ -1,6 +1,6 @@
 ## Business Logic
 
-Students CRUD service
+Students CRUD service with some "useless" features ;-)
 
 ## Run & Build
 
@@ -65,7 +65,7 @@ Memory / CPU:
 
 via ctop
 
-docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest
+    docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest
 
 ### Deploy as AWS Lambda
 
@@ -88,7 +88,7 @@ settings in `application.propertes`
 Testing: curl -H "Content-Type: application/json" -d '{"firstname": "Mini 234",
 "lastname": "Mouse", "immatriculationNumber": "123456", "birthdate": "2000-11-18"}' http://localhost:8080/students
 
-## Patterns
+## Patterns (Part I)
 
 - BCE package structure
 
@@ -96,10 +96,22 @@ Testing: curl -H "Content-Type: application/json" -d '{"firstname": "Mini 234",
 
 - lit
 - Bootstrap
-- Vanilla JS (fetch)
+- Vanilla JS (fetch for REST calls)
 
-resources/META-INF/resources
+Web content `resources/META-INF/resources`
 
 ## Web Sockets
 
 ChatSocket und ChatComponent
+
+http://localhost:8080/ui.html
+
+## CDI
+
+Jakarta EE CID vs. Quarkus Arc
+
+https://quarkus.io/guides/cdi
+
+- Inject
+- Produces
+- Qualifier

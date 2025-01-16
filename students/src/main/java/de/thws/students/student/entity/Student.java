@@ -3,12 +3,9 @@ package de.thws.students.student.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import de.thws.students.logdata.entity.LogData;
 import de.thws.students.major.entity.Major;
 import de.thws.students.student.boundary.StudentDTO;
-import jakarta.inject.Named;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
