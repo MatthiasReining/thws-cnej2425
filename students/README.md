@@ -115,3 +115,4 @@ https://quarkus.io/guides/cdi
 - Inject
 - Produces
 - Qualifier
+- Interceptor

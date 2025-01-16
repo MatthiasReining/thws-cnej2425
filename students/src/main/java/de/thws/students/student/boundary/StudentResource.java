@@ -6,6 +6,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
+import de.thws.students.performance.boundary.PerformanceMeassurement;
 import de.thws.students.student.control.StudentService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("/students")
+@PerformanceMeassurement
 public class StudentResource {
 
     @Inject
@@ -34,6 +36,7 @@ public class StudentResource {
 
     @GET
     @Path("{id}")
+
     public StudentDTO getStundent(@PathParam("id") Long id,
             @QueryParam("audit") @DefaultValue("true") boolean audit) {
 
