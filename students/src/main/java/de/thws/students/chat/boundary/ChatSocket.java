@@ -3,14 +3,17 @@ package de.thws.students.chat.boundary;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.thws.students.chat.control.NewChatUser;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
-import jakarta.websocket.Session;
 
 @ServerEndpoint("/chat/{username}")
 @ApplicationScoped
@@ -18,9 +21,15 @@ public class ChatSocket {
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
+    @Inject
+    @NewChatUser
+    Event<String> event;
+
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) {
         System.out.println("User " + username + " joined");
+        event.fire(username);
+
         broadcast("User " + username + " joined");
         sessions.put(username, session);
     }
