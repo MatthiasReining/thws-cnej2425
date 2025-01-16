@@ -1,87 +1,92 @@
 import { LitElement, html } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 
-
 export default class ChatComponent extends LitElement {
+  static properties = {
+    _connected: { type: Boolean },
+  };
 
-    static properties = {
+  createRenderRoot() {
+    // skip shadow dom
+    return this;
+  }
 
-    }
+  constructor() {
+    super();
 
-    createRenderRoot() {
-        // skip shadow dom
-        return this;
-    }
+    this._connected = false;
+    this._socket = null;
+  }
 
-    constructor() {
-        super();
+  scrollToBottom() {
+    // $('#chat').scrollTop($('#chat')[0].scrollHeight);
+  }
 
-        this.connected = false;
-        this.socket = null;
-    };
+  wsConnect() {
+    const name = this.querySelector('#name').value;
+    console.log('wsConnect', name);
 
-    scrollToBottom() {
-        // $('#chat').scrollTop($('#chat')[0].scrollHeight);
-    }
+    this._socket = new WebSocket('ws://' + location.host + '/chat/' + name);
+    this._socket.onopen = (_) => (this._connected = true);
+    this._socket.onmessage = (message) => this.messageReceived(message);
+  }
 
+  messageReceived(message) {
+    console.log('Got message: ' + message.data);
+    this.querySelector('#chat').value += message.data + '\n';
+  }
 
-    wsConnect() {
-        const name = document.querySelector('#name').value
-        console.log('wsConnect', name);
+  sendNewMessage() {
+    const message = this.querySelector('#msg').value;
+    console.log('sendNewMessage', message);
 
-        if (true) {
+    this._socket.send(message);
+    this.querySelector('#msg').value = '';
+  }
 
-            console.log("Val: " + name);
-            this.socket = new WebSocket("ws://" + location.host + "/chat/" + name);
-            this.socket.onopen = function () {
+  render() {
+    return html`
+      <h3>Chat</h3>
 
-                console.log("Connected to the web socket");
-
-            };
-            this.socket.onmessage = function (m) {
-                console.log("Got message: " + m.data);
-                document.querySelector('#chat').value += m.data + "\n";
-
-            };
-        }
-    }
-
-    sendNewMessage() {
-        const message = document.querySelector('#msg').value
-        console.log('sendNewMessage', message);
-
-        const value = document.querySelector('#msg').value;
-        console.log("Sending " + value);
-        this.socket.send(value);
-        document.querySelector('#msg').value = "";
-
-    }
-
-    render() {
-
-
-        return html`
-        <h3>Chat</h3>
-
-        <div class="container">
-      <br/>
-      <div class="row">
-          <input id="name" class="col-md-4" type="text" placeholder="your name">
-          <button id="connect" class="col-md-1 btn btn-primary" type="button" @click="${_ => this.wsConnect()}">connect</button>
-          <br/>
-          <br/>
+      <div class="container">
+        <div class="row">
+          <div class="col-8">
+            <input id="name" .disabled=${this._connected} class="form-control" type="text" placeholder="your name" />
+          </div>
+          <div class="col-4">
+            <button
+              id="connect"
+              .disabled=${this._connected}
+              class="form-control btn btn-primary"
+              type="button"
+              @click="${(_) => this.wsConnect()}"
+            >
+              connect
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <textarea readonly class="form-control" style="height: 200px" id="chat"></textarea>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-8">
+            <input id="msg" class="form-control" type="text" placeholder="enter your message" />
+          </div>
+          <div class="col-4">
+            <button
+              class="btn btn-primary form-control"
+              .disabled=${!this._connected}
+              type="button"
+              @click="${(_) => this.sendNewMessage()}"
+            >
+              send
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="row">
-          <textarea class="col-md-8" id="chat"></textarea>
-      </div>
-      <div class="row">
-          <input class="col-md-6" id="msg" type="text" placeholder="enter your message">
-          <button class="col-md-1 btn btn-primary" id="send" type="button" @click="${_ => this.sendNewMessage()}">send</button>
-      </div>
-      
-      </div>
-        `;
-    }
+    `;
+  }
 }
 
 customElements.define('thws-chat', ChatComponent);
-
