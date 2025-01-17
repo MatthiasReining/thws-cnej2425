@@ -9,6 +9,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -23,6 +24,8 @@ public class CourseService {
     @RestClient
     StudentResource studentResource;
 
+    private int counter = 0;
+
     public CourseDTO getCouresesByStudentViaRestClient(long id) {
         // TODO implement me
 
@@ -35,16 +38,13 @@ public class CourseService {
         return course;
     }
 
-    @Timeout(2000)
-    @Fallback(fallbackMethod = "getExernalStudentDummy")
+    @Retry(maxRetries = 4, delay = 1000)
     public StudentDTO getExernalStudent(long id) {
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if (counter++ < 2) {
+            throw new RuntimeException("Service not available");
         }
+
         return studentResource.getStundent(id, true);
     }
 
