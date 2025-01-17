@@ -1,4 +1,4 @@
-package de.thws.students.student.boundary;
+package de.thws.courses.boundary;
 
 import java.time.LocalDate;
 
@@ -24,10 +24,5 @@ public class StudentDTO {
 
     public String majorName;
     public String position;
-
-    public Boolean vip;
-
-    @NotNull
-    public LocalDate birthdate;
 
 }

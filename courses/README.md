@@ -11,3 +11,16 @@
 Example service
 
     http://localhost:9090/courses?studentId=1
+
+## Communiction
+
+- HttpClient
+- MicroProfile RestClient
+
+## JPA with Panache
+
+Create database
+
+    create database course;
+    create user course with encrypted password 'course@123';
+    grant all privileges on database course to course;
