@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -22,15 +23,21 @@ public class CourseService {
     @RestClient
     StudentResource studentResource;
 
-    @Timeout(5000)
     public CourseDTO getCouresesByStudentViaRestClient(long id) {
         // TODO implement me
 
         System.out.println("Calling studentResource.getStundent(" + id + ", true)");
-        StudentDTO student = studentResource.getStundent(id, true);
+        StudentDTO student = getExernalStudent(id);
 
         System.out.println("Student: " + student.firstname);
         CourseDTO course = getCourse(student);
+
+        return course;
+    }
+
+    @Timeout(2000)
+    @Fallback(fallbackMethod = "getExernalStudentDummy")
+    public StudentDTO getExernalStudent(long id) {
 
         try {
             Thread.sleep(10000);
@@ -38,8 +45,15 @@ public class CourseService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return studentResource.getStundent(id, true);
+    }
 
-        return course;
+    public StudentDTO getExernalStudentDummy(long id) {
+        StudentDTO student = new StudentDTO();
+        student.firstname = "Temp. not available";
+        student.lastname = "try later...";
+
+        return student;
     }
 
     public CourseDTO getCoursesByStudentViaHttpClient(long id) {
