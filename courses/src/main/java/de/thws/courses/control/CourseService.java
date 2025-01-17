@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import de.thws.courses.boundary.CourseDTO;
@@ -21,6 +22,7 @@ public class CourseService {
     @RestClient
     StudentResource studentResource;
 
+    @Timeout(5000)
     public CourseDTO getCouresesByStudentViaRestClient(long id) {
         // TODO implement me
 
@@ -29,6 +31,13 @@ public class CourseService {
 
         System.out.println("Student: " + student.firstname);
         CourseDTO course = getCourse(student);
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         return course;
     }
